@@ -82,6 +82,15 @@ public class SnowyIntroSequence : MonoBehaviour {
 		yield return new WaitForSeconds(30);
 		overlay.gameObject.SetActive(true);
 		playerObject.GetComponent<FirstPersonController>().enabled = false;
+		float deathTime = 2.0f;
+
+		Vector3 deathPosition = new Vector3(transform.position.x, 0.05f, transform.position.z);
+		Quaternion deathRotation = new Quaternion(transform.rotation.x, transform.rotation.y, -90.0f, 180.0f);
+
+		playerObject.GetComponent<Transform>().position = Vector3.Lerp(transform.position, deathPosition, deathTime * Time.deltaTime);
+		playerObject.GetComponent<Transform>().rotation = Quaternion.Lerp(transform.rotation, deathRotation, deathTime * Time.deltaTime);
+
+
 		overlay.color = overlayColor;
 
 

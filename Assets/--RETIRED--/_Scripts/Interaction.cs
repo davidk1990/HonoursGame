@@ -75,11 +75,15 @@ public class Interaction : MonoBehaviour {
 				//Interacting with the computer
 				}else if(hit.collider.CompareTag("Computer")){
 					hit.collider.GetComponent<SecurityTerminal>().ShowComputerUI();
+					hit.collider.GetComponent<ComputerKey>().OpenDoor();
 				//Initial pickup of the flahlight in the game
 				}else if(hit.collider.CompareTag("Flashlight")){
 					player.GetComponent<Flashlight>().hasFlashlight = true;
 					player.GetComponent<Flashlight>().DeleteFlashlight();
 
+				}else if(hit.collider.CompareTag("ElectroPanel")){
+					hit.collider.GetComponent<ActivatePower>().enabled = true;
+					hit.collider.GetComponent<ActivatePower>().StartUpSequence();
 				}
 
 			}
