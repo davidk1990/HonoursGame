@@ -14,12 +14,24 @@ public class SecurityTerminal : MonoBehaviour {
 
 	public GameObject backgroundImg;
 
+	public GameObject emails;
+
+	public GameObject exitScreen;
+
 	public GameObject logInBtn;
 	public GameObject logInBtn2;
 	public GameObject emailBtn;
 	public GameObject cameraBtn;
 	public GameObject openExitBtn;
 	public GameObject lowPowerText;
+
+	//Stuff for dealing with having the key to unlock the door
+	public bool hasKey = false;
+	public GameObject exitDoor;
+
+	//Exit screen message options
+	public GameObject noKeyMessage;
+	public GameObject keyMessage;
 
 	// Use this for initialization
 	void Start () {
@@ -49,10 +61,43 @@ public class SecurityTerminal : MonoBehaviour {
 
 	public void ShowCameraFeed(){
 		cameraFeeds.SetActive(true);
+		emails.SetActive(false);
+		exitScreen.SetActive(false);
 	}
 
 	public void HideCameraFeed(){
 		cameraFeeds.SetActive(false);
+	}
+
+	public void ShowEmails(){
+		emails.SetActive(true);
+		cameraFeeds.SetActive(false);
+		exitScreen.SetActive(false);
+	}
+
+	public void HideEmails(){
+		emails.SetActive(false);
+	}
+
+	public void ShowExitScreen(){
+		exitScreen.SetActive(true);
+		cameraFeeds.SetActive(false);
+		emails.SetActive(false);
+
+		if(hasKey){
+			keyMessage.SetActive(true);
+			noKeyMessage.SetActive(false);
+			exitDoor.GetComponent<Door>().locked = false;
+			exitDoor.GetComponent<Door>().ChangeDoorState();
+
+		}else{
+			keyMessage.SetActive(false);
+			noKeyMessage.SetActive(true);
+		}
+	}
+
+	public void HideExitScreen(){
+		exitScreen.SetActive(false);
 	}
 
 	public void ShowMainCompScreen(){

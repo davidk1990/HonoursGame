@@ -2,6 +2,8 @@
 using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Characters.FirstPerson;
+using UnityStandardAssets;
+using UnityStandardAssets.ImageEffects;
 using UnityEngine.UI;
 
 public class ActivatePower : MonoBehaviour {
@@ -34,6 +36,9 @@ public class ActivatePower : MonoBehaviour {
 	//Reference to the fpscharactercontroller
 	public GameObject playerObject;
 
+	public MotionBlur MB;
+	public bool motionTrue = false;
+
 	public GameObject computerTerminal;
 
 
@@ -62,6 +67,10 @@ public class ActivatePower : MonoBehaviour {
 			currentValue += fillRate;
 		}
 
+		if(motionTrue == true){
+			MB.blurAmount += 0.1f;
+		}
+
 	}
 
 	public void StartUpSequence(){
@@ -70,6 +79,8 @@ public class ActivatePower : MonoBehaviour {
 		foreach(GameObject flare in flares){
 			flare.SetActive(true);
 		}
+		MB.enabled = true;
+		motionTrue = true;
 		playerObject.GetComponent<FirstPersonController>().enabled = false;
 		this.GetComponent<AudioSource>().Play();
 	}
@@ -91,6 +102,8 @@ public class ActivatePower : MonoBehaviour {
 		}
 		playerObject.GetComponent<FirstPersonController>().enabled = true;
 		TurnOnLights();
+		MB.enabled = false;
+		motionTrue = false;
 
 		//disable the activatePower script
 		this.GetComponent<ActivatePower>().enabled = false;

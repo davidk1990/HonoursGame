@@ -31,6 +31,8 @@ public class StartSequence : MonoBehaviour {
 	//Reference to the playerHud
 	public GameObject playerHUD;
 
+	public Objectives objective;
+
 
 	// Use this for initialization
 	void Start () {
@@ -55,10 +57,12 @@ public class StartSequence : MonoBehaviour {
 		if(gameTime >= openingEnd  && stillOpening == true){
 			Debug.Log("Opening sequence has finished");
 			MB.blurAmount = 0f;
+			MB.enabled = false;
 			TW.enabled = false;
 			fadePanel.enabled = false;
 			stillOpening = false;
 			playerObject.GetComponent<FirstPersonController>().enabled = true;
+			objective.ShowObjective();
 		}
 	}
 }

@@ -84,6 +84,8 @@ public class Interaction : MonoBehaviour {
 				}else if(hit.collider.CompareTag("ElectroPanel")){
 					hit.collider.GetComponent<ActivatePower>().enabled = true;
 					hit.collider.GetComponent<ActivatePower>().StartUpSequence();
+				}else if(hit.collider.CompareTag("Keycard")){
+					hit.collider.GetComponent<ComputerKey>().ObtainedKey();
 				}
 
 			}

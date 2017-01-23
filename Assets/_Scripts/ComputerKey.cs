@@ -12,6 +12,8 @@ public class ComputerKey : MonoBehaviour {
 	//What does it unlock if it is?
 	public GameObject unlockable;
 
+	public GameObject securityTerminal;
+
 	// Use this for initialization
 	void Start () {
 
@@ -22,10 +24,14 @@ public class ComputerKey : MonoBehaviour {
 
 	}
 
+	public void ObtainedKey(){
+		securityTerminal.GetComponent<SecurityTerminal>().hasKey = true;
+	}
+
 	public void OpenDoor(){
         if(isKey){
         	unlockable.GetComponent<Door>().locked = false;
-			unlockable.GetComponent<Door>().ChangeDoorState();
+			
         }
 	}
 
