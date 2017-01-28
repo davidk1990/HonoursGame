@@ -40,6 +40,7 @@ public class ActivatePower : MonoBehaviour {
 	public bool motionTrue = false;
 
 	public GameObject computerTerminal;
+	public Objectives objectives;
 
 
 
@@ -108,6 +109,8 @@ public class ActivatePower : MonoBehaviour {
 		//disable the activatePower script
 		this.GetComponent<ActivatePower>().enabled = false;
 		this.GetComponent<AudioSource>().Stop();
-		computerTerminal.GetComponent<SecurityTerminal>().PowerOn();	
+		computerTerminal.GetComponent<SecurityTerminal>().PowerOn();
+		objectives.UpdateObjective();	
+		this.gameObject.layer = LayerMask.NameToLayer("Default");
 	}
 }

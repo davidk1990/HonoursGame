@@ -25,6 +25,8 @@ public class SecurityTerminal : MonoBehaviour {
 	public GameObject openExitBtn;
 	public GameObject lowPowerText;
 
+	public Objectives objectives;
+
 	//Stuff for dealing with having the key to unlock the door
 	public bool hasKey = false;
 	public GameObject exitDoor;
@@ -32,6 +34,8 @@ public class SecurityTerminal : MonoBehaviour {
 	//Exit screen message options
 	public GameObject noKeyMessage;
 	public GameObject keyMessage;
+
+	public bool hasKeyObjective = false;
 
 	// Use this for initialization
 	void Start () {
@@ -73,6 +77,11 @@ public class SecurityTerminal : MonoBehaviour {
 		emails.SetActive(true);
 		cameraFeeds.SetActive(false);
 		exitScreen.SetActive(false);
+
+		if(!hasKeyObjective){
+			objectives.UpdateObjective();
+		}
+		hasKeyObjective = true;
 	}
 
 	public void HideEmails(){
@@ -89,6 +98,7 @@ public class SecurityTerminal : MonoBehaviour {
 			noKeyMessage.SetActive(false);
 			exitDoor.GetComponent<Door>().locked = false;
 			exitDoor.GetComponent<Door>().ChangeDoorState();
+			objectives.UpdateObjective();
 
 		}else{
 			keyMessage.SetActive(false);
@@ -111,6 +121,7 @@ public class SecurityTerminal : MonoBehaviour {
 		backgroundImg.GetComponent<Image>().color = Color.black;
 		logInBtn.SetActive(false);
 		lowPowerText.SetActive(true);
+		objectives.UpdateObjective();
 	}
 
 	public void PowerOn(){

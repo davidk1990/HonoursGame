@@ -37,6 +37,7 @@ public class StartSequence : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		playerHUD.SetActive(true);
+		objective.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -55,13 +56,14 @@ public class StartSequence : MonoBehaviour {
 
 
 		if(gameTime >= openingEnd  && stillOpening == true){
-			Debug.Log("Opening sequence has finished");
+			objective.enabled = true;
 			MB.blurAmount = 0f;
 			MB.enabled = false;
 			TW.enabled = false;
 			fadePanel.enabled = false;
 			stillOpening = false;
 			playerObject.GetComponent<FirstPersonController>().enabled = true;
+
 			objective.ShowObjective();
 		}
 	}
