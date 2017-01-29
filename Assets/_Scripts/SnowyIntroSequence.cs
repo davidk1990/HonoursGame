@@ -42,8 +42,6 @@ public class SnowyIntroSequence : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Cursor.visible = false;
-		Screen.lockCursor = true;
 		playerObject.GetComponent<FirstPersonController>().enabled = false;
 	}
 	
@@ -106,6 +104,6 @@ public class SnowyIntroSequence : MonoBehaviour {
 	private IEnumerator LoadNextLevel(){
 		yield return new WaitForSeconds(45);
 		//TODO Change this when all scenes are in
-		SceneManager.LoadScene(1);
+		SceneManager.LoadScene(4);
 	}
 }

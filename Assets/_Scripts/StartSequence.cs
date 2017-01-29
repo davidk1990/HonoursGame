@@ -38,6 +38,7 @@ public class StartSequence : MonoBehaviour {
 	void Start () {
 		playerHUD.SetActive(true);
 		objective.enabled = false;
+		playerObject.GetComponent<FirstPersonController>().enabled = false;
 	}
 	
 	// Update is called once per frame

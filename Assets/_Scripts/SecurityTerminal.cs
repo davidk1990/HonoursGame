@@ -24,6 +24,8 @@ public class SecurityTerminal : MonoBehaviour {
 	public GameObject cameraBtn;
 	public GameObject openExitBtn;
 	public GameObject lowPowerText;
+	public GameObject logOutButton;
+	public GameObject pauseContinue;
 
 	public Objectives objectives;
 
@@ -37,14 +39,29 @@ public class SecurityTerminal : MonoBehaviour {
 
 	public bool hasKeyObjective = false;
 
+	public GameObject eventSystem;
+
+	public bool closePC = true;
+
+	private AudioSource noisePC;
+
+
 	// Use this for initialization
 	void Start () {
 		computerCanvas.SetActive(false);
+		noisePC = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if(CrossPlatformInputManager.GetButtonDown("FlashlightOn")){
+			HideComputerUI();
+		} 
+
+		if(closePC){
+			//HideComputerUI();
+			//closePC = false;
+		}
 	}
 
 	public void ShowComputerUI(){
@@ -54,13 +71,20 @@ public class SecurityTerminal : MonoBehaviour {
 		Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 		computerCanvas.SetActive(true);
+		eventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(logOutButton);
+		//closePC = false;
+		noisePC.Play();
 	}
 
 	public void HideComputerUI(){
-		computerCanvas.SetActive(false);
+		
+		playerObject.GetComponent<FirstPersonController>().enabled = true;
 		Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-		playerObject.GetComponent<FirstPersonController>().enabled = true;
+		computerCanvas.SetActive(false);
+		eventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(pauseContinue);
+		//closePC = true;
+		noisePC.Stop();
 	}
 
 	public void ShowCameraFeed(){
@@ -122,13 +146,13 @@ public class SecurityTerminal : MonoBehaviour {
 		logInBtn.SetActive(false);
 		lowPowerText.SetActive(true);
 		objectives.UpdateObjective();
+		eventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(logOutButton);
 	}
 
 	public void PowerOn(){
 		backgroundImg.GetComponent<Image>().color = Color.white;
 		lowPowerText.SetActive(false);
 		logInBtn2.SetActive(true);
-
 	}
 
 }

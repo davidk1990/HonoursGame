@@ -44,7 +44,6 @@ public class Objectives : MonoBehaviour {
 	public void UpdateObjective(){
 		
 		objectiveCounter++;
-		Debug.Log("Objective updated, now on objective: " + objectiveCounter);
 		objectiveText.text = objectives[objectiveCounter];
 		ShowObjective();
 

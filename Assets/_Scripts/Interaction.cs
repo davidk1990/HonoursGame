@@ -38,9 +38,6 @@ public class Interaction : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//drawing raycast for testing purposes, delete before final build
-		DebugRayCastDraw();
-
 		//Draws a ray in front of player
 		Ray ray = new Ray(transform.position, transform.forward);
 		//Results stored in hit
@@ -119,33 +116,5 @@ public class Interaction : MonoBehaviour {
 			//interactionIcon.enabled = true;
 		}
 
-	}
-
-
-
-	//Method to draw a debug raycast to test interactions
-	void DebugRayCastDraw(){
-		RaycastHit hit;
-		float theDistance;
-
-		Vector3 forward = transform.TransformDirection(Vector3.forward) * 3;
-
-		Debug.DrawRay(transform.position, forward, Color.green);
-
-		if(Physics.Raycast(transform.position, (forward), out hit)){
-			theDistance = hit.distance;
-			//Debug.Log(theDistance + " " + hit.collider.gameObject.name);
-			//isInteracting = true;
-
-		}else{
-			//isInteracting = false;
-		}
-
-		//Attempt at highlighting interactions
-		//if(isInteracting){
-			//hit.collider.gameObject.GetComponent<Renderer>().material.shader = Shader.Find("Self-Illumin/Outlined Diffuse");
-		//}else{
-			//hit.collider.gameObject.GetComponent<Renderer>().material.shader = Shader.Find("Standard");
-		//}
 	}
 }
