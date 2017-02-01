@@ -26,6 +26,7 @@ public class ComputerKey : MonoBehaviour {
 
 	public void ObtainedKey(){
 		securityTerminal.GetComponent<SecurityTerminal>().hasKey = true;
+		Destroy(this.gameObject);
 	}
 
 	public void OpenDoor(){
