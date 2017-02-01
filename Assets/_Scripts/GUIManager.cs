@@ -75,7 +75,7 @@ public class GUIManager : MonoBehaviour {
 
 	public void Pause(){
 		isPaused = !isPaused;
-		Debug.Log("Game paused =" +isPaused);
+		//Debug.Log("Game paused =" +isPaused);
 
 		if(isPaused){
 			pausePanel.SetActive(true);

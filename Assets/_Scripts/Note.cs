@@ -8,8 +8,13 @@ public class Note : MonoBehaviour {
 
 	//Sprite image of the note being read to be displayed on the screen
 	public Image noteImage;
+	public GameObject readingNotePanel;
+	public GameObject noteText;
 
-	public GameObject hideNoteButton;
+	//Write what you want displayed in this
+	public string newspaperText;
+
+	//public GameObject hideNoteButton;
 
 	//Audio for different note interactions
 	public AudioClip pickUpSound;
@@ -39,9 +44,12 @@ public class Note : MonoBehaviour {
 
 	public void ShowNoteImage(){
 		noteImage.enabled = true;
+		readingNotePanel.SetActive(true);
+		noteText.GetComponent<Text>().text = newspaperText;
+		noteText.SetActive(true);
 		GetComponent<AudioSource>().PlayOneShot(pickUpSound);
 
-		hideNoteButton.SetActive(true);
+		//hideNoteButton.SetActive(true);
 
 		//Makes it so the player can't move when reading the note
 		playerObject.GetComponent<FirstPersonController>().enabled = false;
@@ -58,10 +66,13 @@ public class Note : MonoBehaviour {
 
 	public void HideNoteImage(){
 		noteImage.enabled = false;
-		hideNoteButton.SetActive(false);
+		readingNotePanel.SetActive(false);
+		noteText.SetActive(false);
+		//hideNoteButton.SetActive(false);
 		GetComponent<AudioSource>().PlayOneShot(putAwaySound);
 		Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 		playerObject.GetComponent<FirstPersonController>().enabled = true;
+		this.enabled = false;
 	}
 }

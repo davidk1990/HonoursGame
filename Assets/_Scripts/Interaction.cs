@@ -58,6 +58,7 @@ public class Interaction : MonoBehaviour {
 
 				//If the thing you hite has a note tag
 				}else if(hit.collider.CompareTag("Note")){
+					hit.collider.GetComponent<Note>().enabled = true;
 					hit.collider.GetComponent<Note>().ShowNoteImage();
 					isInteracting = true;
 				//If the thing you hit is pickupable
