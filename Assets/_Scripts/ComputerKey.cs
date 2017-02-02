@@ -14,19 +14,23 @@ public class ComputerKey : MonoBehaviour {
 
 	public GameObject securityTerminal;
 
+	public GameObject keycardText;
+
 	// Use this for initialization
 	void Start () {
 
 	}
 
 	void Update(){
-
-
+	
 	}
 
 	public void ObtainedKey(){
 		securityTerminal.GetComponent<SecurityTerminal>().hasKey = true;
-		Destroy(this.gameObject);
+		keycardText.SetActive(true);
+		StartCoroutine(RemoveText());
+
+
 	}
 
 	public void OpenDoor(){
@@ -34,6 +38,15 @@ public class ComputerKey : MonoBehaviour {
         	unlockable.GetComponent<Door>().locked = false;
 			
         }
+	}
+
+	public IEnumerator RemoveText(){
+		yield return new WaitForSeconds(2);
+
+
+		keycardText.SetActive(false);
+
+		Destroy(this.gameObject);
 	}
 
 }

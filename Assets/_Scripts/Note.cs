@@ -22,11 +22,18 @@ public class Note : MonoBehaviour {
 
 	public GameObject playerObject;
 
+	public string name;
+
+	public GameObject newsUIText;
+
 	//Is the note a key?
 	public bool isKey = false;
 
 	//What does it unlock if it is?
 	public GameObject unlockable;
+
+	bool readNote = false;
+	int currentRead;
 
 	// Use this for initialization
 	void Start () {
@@ -43,11 +50,17 @@ public class Note : MonoBehaviour {
 	}
 
 	public void ShowNoteImage(){
+		if(readNote == false){
+			UpdateBackstoryCount();
+		}	
+
 		noteImage.enabled = true;
 		readingNotePanel.SetActive(true);
 		noteText.GetComponent<Text>().text = newspaperText;
 		noteText.SetActive(true);
 		GetComponent<AudioSource>().PlayOneShot(pickUpSound);
+		playerObject.GetComponent<Flashlight>().enabled = false;
+		readNote = true;
 
 		//hideNoteButton.SetActive(true);
 
@@ -73,6 +86,20 @@ public class Note : MonoBehaviour {
 		Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 		playerObject.GetComponent<FirstPersonController>().enabled = true;
+		playerObject.GetComponent<Flashlight>().enabled = true;
 		this.enabled = false;
+	}
+
+	public void UpdateBackstoryCount(){
+		newsUIText.GetComponent<Text>().text = name + " out of 4 newspapers read";
+		newsUIText.SetActive(true);
+
+		StartCoroutine(HideBackstory());
+	}
+
+	public IEnumerator HideBackstory(){
+		yield return new WaitForSeconds(2);
+
+		newsUIText.SetActive(false);
 	}
 }

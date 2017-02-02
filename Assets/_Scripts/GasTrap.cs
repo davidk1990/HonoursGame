@@ -24,6 +24,7 @@ public class GasTrap : MonoBehaviour {
 	public GameObject doorToClose;
 
 	public AudioSource chokingSFX;
+	public AudioSource BB;
 
 	// Use this for initialization
 	void Start () {
@@ -55,6 +56,7 @@ public class GasTrap : MonoBehaviour {
 			doorToClose.GetComponent<Door>().ChangeDoorState();
 			doorToClose.GetComponent<Door>().locked = true;
 			chokingSFX.Play();
+			BB.Play();
 		}
 	}
 
@@ -65,7 +67,7 @@ public class GasTrap : MonoBehaviour {
 		}
 
 		if(currentBreath <= minBreath){
-			SceneManager.LoadScene(1);
+			SceneManager.LoadScene(4);
 		}
 	}
 

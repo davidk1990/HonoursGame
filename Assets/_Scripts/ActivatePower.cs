@@ -23,7 +23,7 @@ public class ActivatePower : MonoBehaviour {
 	public float emptyRate = 5f;
 
 	//Fill rate
-	public float fillRate = 1.0f;
+	public float fillRate = 2f;
 
 	//Area of lights to turn on
 	public Light[] lights;
@@ -41,7 +41,7 @@ public class ActivatePower : MonoBehaviour {
 
 	public GameObject computerTerminal;
 	public Objectives objectives;
-
+	public GameObject tapText;
 
 
 	// Use this for initialization
@@ -58,7 +58,7 @@ public class ActivatePower : MonoBehaviour {
 		}
 
 		if(currentValue <= emptyValue){
-			Debug.Log("You died");
+			FailedStartup();
 		}else if(currentValue >= fullValue){
 			FinishTapping();
 		}
@@ -77,6 +77,7 @@ public class ActivatePower : MonoBehaviour {
 	public void StartUpSequence(){
 		
 		electroBolt.SetActive(true);
+		tapText.SetActive(true);
 		foreach(GameObject flare in flares){
 			flare.SetActive(true);
 		}
@@ -84,6 +85,18 @@ public class ActivatePower : MonoBehaviour {
 		motionTrue = true;
 		playerObject.GetComponent<FirstPersonController>().enabled = false;
 		this.GetComponent<AudioSource>().Play();
+	}
+
+	public void FailedStartup(){
+		electroBolt.SetActive(false);
+		tapText.SetActive(false);
+		foreach(GameObject flare in flares){
+			flare.SetActive(false);
+		}
+		MB.enabled = false;
+		motionTrue = false;
+		playerObject.GetComponent<FirstPersonController>().enabled = true;
+		this.GetComponent<AudioSource>().Stop();
 	}
 
 	void TurnOnLights(){
@@ -94,12 +107,13 @@ public class ActivatePower : MonoBehaviour {
 
 	void FinishTapping(){
 		electroBolt.SetActive(false);
+		tapText.SetActive(false);
 		foreach(GameObject flare in flares){
 			flare.SetActive(false);
 		}
 
 		foreach(GameObject door in doors){
-			door.GetComponent<Door>().open = true;
+			door.GetComponent<Door>().locked = false;
 		}
 		playerObject.GetComponent<FirstPersonController>().enabled = true;
 		TurnOnLights();

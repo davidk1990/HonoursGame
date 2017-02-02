@@ -33,12 +33,16 @@ public class StartSequence : MonoBehaviour {
 
 	public Objectives objective;
 
+	public GUIManager guiMan;
+
 
 	// Use this for initialization
 	void Start () {
 		playerHUD.SetActive(true);
 		objective.enabled = false;
 		playerObject.GetComponent<FirstPersonController>().enabled = false;
+		guiMan.enabled = false;
+
 	}
 	
 	// Update is called once per frame
@@ -64,7 +68,7 @@ public class StartSequence : MonoBehaviour {
 			fadePanel.enabled = false;
 			stillOpening = false;
 			playerObject.GetComponent<FirstPersonController>().enabled = true;
-
+			guiMan.enabled = true;
 			objective.ShowObjective();
 		}
 	}

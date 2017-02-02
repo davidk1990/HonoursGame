@@ -21,11 +21,14 @@ public class GUIManager : MonoBehaviour {
 	private GameObject storedSelected;
 
 	//Reference to the player object
-	private GameObject player;
+	public GameObject player;
 
 
 	//bool to determine if paused or not
 	private bool isPaused = false;
+
+	public AudioSource[] allAudioSources;
+	public bool getAudiosources = false;
 
 
 	// Use this for initialization
@@ -37,8 +40,9 @@ public class GUIManager : MonoBehaviour {
 
 		player = GameObject.FindGameObjectWithTag("Player");
 
-
-
+		if(getAudiosources){
+			allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+		}
 	}
 	
 	// Update is called once per frame
@@ -58,7 +62,14 @@ public class GUIManager : MonoBehaviour {
 		//If you press the pause button - controller start or keyboard esc
 		if(CrossPlatformInputManager.GetButtonDown("Cancel")){
 			Pause();
-		} 
+		}
+
+		if(isPaused){
+			if(CrossPlatformInputManager.GetButtonDown("FlashlightOn")){
+				Pause();
+			} 
+		}
+
 	}
 
 	public void Play(){
@@ -84,6 +95,14 @@ public class GUIManager : MonoBehaviour {
 			Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             player.GetComponent<FirstPersonController>().enabled = false;
+			player.GetComponent<Flashlight>().enabled = false;
+
+            foreach(AudioSource audios in allAudioSources){
+            	if(!audios.CompareTag("ButtonAudio")){
+            		audios.Pause();
+            	}
+            }
+
 		}else{
 			pausePanel.SetActive(false);
 			playerHUD.SetActive(true);
@@ -91,6 +110,12 @@ public class GUIManager : MonoBehaviour {
             Cursor.visible = false;
 			Time.timeScale = 1;
 			player.GetComponent<FirstPersonController>().enabled = true;
+			player.GetComponent<Flashlight>().enabled = true;
+			foreach(AudioSource audios in allAudioSources){
+				if(!audios.CompareTag("ButtonAudio")){
+            			audios.Play();            	
+            	}
+            }
 		}
 	}
 

@@ -29,6 +29,8 @@ public class SnowyIntroSequence : MonoBehaviour {
 
 	private Color overlayColor = Color.black;
 
+	public GUIManager guiMan;
+
 	void Awake(){
 		
 		StartCoroutine(OverlayFadeToClear());
@@ -64,6 +66,7 @@ public class SnowyIntroSequence : MonoBehaviour {
 
 		overlay.gameObject.SetActive(false);
 		playerObject.GetComponent<FirstPersonController>().enabled = true;
+		guiMan.enabled = true;
 
 	}
 

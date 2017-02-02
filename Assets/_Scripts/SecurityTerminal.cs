@@ -45,6 +45,8 @@ public class SecurityTerminal : MonoBehaviour {
 
 	private AudioSource noisePC;
 
+	public GUIManager guiMan;
+
 
 	// Use this for initialization
 	void Start () {
@@ -74,6 +76,8 @@ public class SecurityTerminal : MonoBehaviour {
 		eventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(logOutButton);
 		//closePC = false;
 		noisePC.Play();
+		guiMan.enabled = false;
+		playerObject.GetComponent<Flashlight>().enabled = false;
 	}
 
 	public void HideComputerUI(){
@@ -85,6 +89,8 @@ public class SecurityTerminal : MonoBehaviour {
 		eventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(pauseContinue);
 		//closePC = true;
 		noisePC.Stop();
+		guiMan.enabled = true;
+		playerObject.GetComponent<Flashlight>().enabled = true;
 	}
 
 	public void ShowCameraFeed(){
@@ -123,6 +129,7 @@ public class SecurityTerminal : MonoBehaviour {
 			exitDoor.GetComponent<Door>().locked = false;
 			exitDoor.GetComponent<Door>().ChangeDoorState();
 			objectives.UpdateObjective();
+			hasKey = false;
 
 		}else{
 			keyMessage.SetActive(false);
