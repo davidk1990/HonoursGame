@@ -8,10 +8,10 @@ using UnityStandardAssets.CrossPlatformInput;
 public class ScrollingCredits : MonoBehaviour {
 
 	public GameObject creditText;
-	public float speed = 75f;
 
-	//Obviously change this once you have finalised credits
-	private int loadNextLevelTime = 10;
+
+	private float speed = 75f;
+	private int loadNextLevelTime = 45;
 
 	// Use this for initialization
 	void Start () {
@@ -22,9 +22,10 @@ public class ScrollingCredits : MonoBehaviour {
 	void Update () {
 		creditText.transform.Translate(Vector3.up * Time.deltaTime * speed);
 		StartCoroutine(BackToMM());
-		if(CrossPlatformInputManager.GetButtonDown("FlashlightOn")){
+
+		if(Input.anyKey){
 			LoadMainMenu();
-		} 
+		}  
 	}
 
 	public IEnumerator BackToMM(){
