@@ -47,6 +47,9 @@ public class SecurityTerminal : MonoBehaviour {
 
 	public GUIManager guiMan;
 
+	public bool fridgeHaunting = false;
+	public HauntedObject hauntedObject;
+
 
 	// Use this for initialization
 	void Start () {
@@ -95,6 +98,7 @@ public class SecurityTerminal : MonoBehaviour {
 
 	public void ShowCameraFeed(){
 		cameraFeeds.SetActive(true);
+		hauntedObject.MoveEvents();
 		emails.SetActive(false);
 		exitScreen.SetActive(false);
 	}

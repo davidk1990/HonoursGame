@@ -12,6 +12,15 @@ public class ScareTrigger : MonoBehaviour {
 	//An array of lights to either turn on or off
 	public Light [] lights;
 
+	public GameObject objectToMove1;
+	public GameObject objectToMove2;
+
+	public Vector3 object1NewPosition;
+	public Vector3 object2NewPosition;
+
+	public Quaternion object1NewRotation;
+	public Quaternion object2NewRotation;
+
 	//Array of all the breathing noises
 	public AudioClip [] breathing;
 
@@ -20,6 +29,10 @@ public class ScareTrigger : MonoBehaviour {
 	public AudioSource jumpScareSound;
 
 	public AudioSource breathGenerator;
+
+	public bool isLerp = false;
+
+	public float lerpSpeed;
 
 
 
@@ -36,8 +49,9 @@ public class ScareTrigger : MonoBehaviour {
 	void OnTriggerEnter(Collider collider){
 		if(collider.tag == "Player"){
 			CheckScareEvents();
-			Destroy(thisTrigger);
-
+			if(!isLerp){
+				Destroy(thisTrigger);
+			}
 		}
 	}
 
@@ -45,6 +59,8 @@ public class ScareTrigger : MonoBehaviour {
 		JumpScareSound();
 		DoorScare();
 		LightScare();
+		MoveObjects();
+		StartCoroutine(LerpObjects());
 	}
 
 	//Deals with scare events involving doors
@@ -87,5 +103,38 @@ public class ScareTrigger : MonoBehaviour {
 
 	}
 
+	void MoveObjects(){
+		if(!isLerp){
+			if(objectToMove1){
+				objectToMove1.transform.position = object1NewPosition;
+				objectToMove1.transform.rotation = object1NewRotation;
+			}else{
+				return;
+			}
+
+			if(objectToMove2){
+				objectToMove2.transform.position = object2NewPosition;
+				objectToMove2.transform.rotation = object2NewRotation;
+			}else{
+				return;
+			}
+		}
+	}
+
+	IEnumerator LerpObjects(){
+
+		while(isLerp){
+			float step = lerpSpeed * Time.deltaTime;
+			objectToMove1.transform.position = Vector3.Lerp(objectToMove1.transform.position, object1NewPosition, step);
+
+			if(objectToMove1.transform.position == object1NewPosition){
+				Destroy(thisTrigger);
+				yield break;
+
+			}
+
+			yield return null;
+		}
+	}
 
 }

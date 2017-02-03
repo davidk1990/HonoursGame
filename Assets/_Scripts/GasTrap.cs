@@ -55,8 +55,9 @@ public class GasTrap : MonoBehaviour {
 			VCA.enabled = true;
 			doorToClose.GetComponent<Door>().ChangeDoorState();
 			doorToClose.GetComponent<Door>().locked = true;
-			chokingSFX.Play();
+
 			BB.Play();
+			chokingSFX.Play();
 		}
 	}
 
@@ -67,7 +68,7 @@ public class GasTrap : MonoBehaviour {
 		}
 
 		if(currentBreath <= minBreath){
-			SceneManager.LoadScene(4);
+			SceneManager.LoadScene(5);
 		}
 	}
 

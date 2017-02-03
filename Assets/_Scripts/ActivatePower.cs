@@ -43,6 +43,8 @@ public class ActivatePower : MonoBehaviour {
 	public Objectives objectives;
 	public GameObject tapText;
 
+	public GameObject scareTrigger;
+
 
 	// Use this for initialization
 	void Start () {
@@ -107,6 +109,7 @@ public class ActivatePower : MonoBehaviour {
 
 	void FinishTapping(){
 		electroBolt.SetActive(false);
+		scareTrigger.SetActive(true);
 		tapText.SetActive(false);
 		foreach(GameObject flare in flares){
 			flare.SetActive(false);
