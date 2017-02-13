@@ -29,11 +29,15 @@ public class Note : MonoBehaviour {
 	//Is the note a key?
 	public bool isKey = false;
 
+	public bool isObjectiveUpdater = false;
+
 	//What does it unlock if it is?
 	public GameObject unlockable;
 
 	bool readNote = false;
 	int currentRead;
+
+	public Objectives objectives;
 
 	// Use this for initialization
 	void Start () {
@@ -88,6 +92,10 @@ public class Note : MonoBehaviour {
 		playerObject.GetComponent<FirstPersonController>().enabled = true;
 		playerObject.GetComponent<Flashlight>().enabled = true;
 		this.enabled = false;
+
+		if(isObjectiveUpdater){
+			objectives.UpdateObjective();
+		}
 	}
 
 	public void UpdateBackstoryCount(){

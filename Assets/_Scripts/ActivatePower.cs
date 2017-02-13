@@ -23,7 +23,7 @@ public class ActivatePower : MonoBehaviour {
 	public float emptyRate = 5f;
 
 	//Fill rate
-	public float fillRate = 2f;
+	public float fillRate = 2.5f;
 
 	//Area of lights to turn on
 	public Light[] lights;
@@ -68,6 +68,7 @@ public class ActivatePower : MonoBehaviour {
 		if(CrossPlatformInputManager.GetButtonDown("ControllerInteract")){
 			//Debug.Log("Pressing interact button");
 			currentValue += fillRate;
+			MB.blurAmount -= 0.1f;
 		}
 
 		if(motionTrue == true){
